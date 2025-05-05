@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 40px;
+  height: 750px;
+  margin: 40px 0;
+  overflow: scroll;
 `;
 const Chatcontainer = styled.div`
   display: flex;
