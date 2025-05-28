@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from '../page/main/Main';
 import Chatting from '../page/chatting/Chatting';
 import Archive from '../page/archive/Archive';
+import Login from '../page/login/Login';
 const Routers = () => {
   const router = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ const Routers = () => {
     {
       path: '/archive',
       element: <Archive />,
+    },
+    {
+      path: '/login',
+      element: <Login />,
     },
   ]);
 
