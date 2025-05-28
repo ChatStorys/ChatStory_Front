@@ -44,7 +44,10 @@ const SentChat = styled.img`
   height: 65px;
   flex-shrink: 0;
 `;
-const Footer: React.FC = () => {
+type Footer = {
+  handleCutModal: () => void;
+};
+const Footer: React.FC<Footer> = ({ handleCutModal }) => {
   const [message, setMessage] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -69,7 +72,7 @@ const Footer: React.FC = () => {
         <Sendmessage ref={textareaRef} placeholder="메세지 보내기..." value={message} onChange={handleChange} onKeyDown={handleKeyDown} />{' '}
         <ButtonBox>
           <EndChapter src={Endchapter} />
-          <SentChat src={SendChat} />
+          <SentChat src={SendChat} onClick={handleCutModal} />
         </ButtonBox>
       </Subcontainer>
     </Container>

@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../../component/header/Header';
 import Chatcontent from '../../component/chatcontent/Chatcontent';
 import Footer from '../../component/footer/Footer';
+import Cutmodal from '../../component/cutmodal/Cutmodal';
 const Container = styled.div`
   background: #e4e0e1;
   padding: 0 126px;
   height: 1024px;
+  z-index: 1;
 `;
 const Chatting: React.FC = () => {
+  const [cutModal, setCutModal] = useState(false);
+  const handleCutModal = () => {
+    setCutModal((prev) => !prev);
+  };
   const content = [
     {
       LLM_Model: '어둠이 짙게 깔린 골목 끝, 작은 철문 하나가 덜컹거리고 있었다. 표식도 없이 녹슬어 있는 문 앞에 소년이 섰다.',
@@ -43,7 +49,8 @@ const Chatting: React.FC = () => {
         <Header title="소설 제목" />
         <Chatcontent chatcontent={content} />
       </Container>
-      <Footer />
+      <Footer handleCutModal={handleCutModal} />
+      {cutModal && <Cutmodal handleCutModal={handleCutModal} />}
     </>
   );
 };

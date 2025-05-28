@@ -69,9 +69,9 @@ const Chatcontent: React.FC<ChatcontentProps> = ({ chatcontent }) => {
   return (
     <Container>
       {chatcontent.map((chats, index) => (
-        <Chatcontainer>
+        <Chatcontainer key={index}>
           <LeftChat>
-            <LLM key={index}>{chats.LLM_Model}</LLM>
+            <LLM>{chats.LLM_Model}</LLM>
           </LeftChat>
           <RightChat>
             <User>{chats.User}</User>
