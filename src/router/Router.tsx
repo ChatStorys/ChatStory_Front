@@ -3,6 +3,7 @@ import Main from '../page/main/Main';
 import Chatting from '../page/chatting/Chatting';
 import Archive from '../page/archive/Archive';
 import Login from '../page/login/Login';
+import Signup from '../page/signup/Signup';
 const Routers = () => {
   const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const Routers = () => {
     {
       path: '/login',
       element: <Login />,
+    },
+    {
+      path: '/signup',
+      element: <Signup />,
     },
   ]);
 
