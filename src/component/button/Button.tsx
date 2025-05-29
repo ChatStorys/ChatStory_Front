@@ -19,7 +19,7 @@ const Container = styled.div<{ marginTop?: string }>`
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 22.4px */
+  line-height: 140%;
   letter-spacing: -0.4px;
   display: flex;
   justify-content: center;
