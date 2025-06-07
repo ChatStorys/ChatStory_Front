@@ -28,8 +28,8 @@ const Signup = styled.div`
   letter-spacing: -0.4px;
 `;
 const Login: React.FC = () => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  // const [id, setId] = useState('');
+  // const [password, setPassword] = useState('');
 
   return (
     <SignContainer>

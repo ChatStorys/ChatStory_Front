@@ -5,6 +5,7 @@ import Archive from '../page/archive/Archive';
 import Login from '../page/login/Login';
 import Signup from '../page/signup/Signup';
 import Archiving from '../page/archiving/Archiving';
+import Category from '../page/category/Category';
 const Routers = () => {
   const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const Routers = () => {
     {
       path: '/archiving',
       element: <Archiving />,
+    },
+    {
+      path: '/category',
+      element: <Category />,
     },
   ]);
 
