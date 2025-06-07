@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import Left from '../../../assets/LeftrightBtn/LeftBtn.svg';
 import Right from '../../../assets/LeftrightBtn/RightBtn.svg';
 interface LeftrightBtnProps {
-  leftLabel?: string;
-  rightLabel?: string;
   onLeftClick?: () => void;
   onRightClick?: () => void;
   disabledLeft?: boolean;
@@ -23,11 +21,11 @@ const Container = styled.div`
 `;
 const LeftBtn = styled.img``;
 const RightBtn = styled.img``;
-const LeftrightBtn: React.FC<LeftrightBtnProps> = ({}) => {
+const LeftrightBtn: React.FC<LeftrightBtnProps> = ({ onLeftClick, onRightClick }) => {
   return (
     <Container>
-      <LeftBtn src={Left} />
-      <RightBtn src={Right} />
+      <LeftBtn src={Left} onClick={onLeftClick} />
+      <RightBtn src={Right} onClick={onRightClick} />
     </Container>
   );
 };
