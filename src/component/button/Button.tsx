@@ -26,13 +26,19 @@ const Container = styled.div<{ marginTop?: string }>`
   align-items: center;
   margin-top: ${(props) => props.marginTop || '0px'};
   margin-bottom: 28px;
+  cursor: pointer;
 `;
 type ButtonProps = {
   children: React.ReactNode;
   marginTop?: string;
+  onClick?: () => void;
 };
-const Button: React.FC<ButtonProps> = ({ children, marginTop }) => {
-  return <Container marginTop={marginTop}>{children}</Container>;
+const Button: React.FC<ButtonProps> = ({ children, marginTop, onClick }) => {
+  return (
+    <Container marginTop={marginTop} onClick={onClick}>
+      {children}
+    </Container>
+  );
 };
 
 export default Button;

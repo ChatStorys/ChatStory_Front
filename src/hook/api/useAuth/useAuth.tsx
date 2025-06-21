@@ -10,7 +10,6 @@ const useAuth = () => {
       .then((response) => {
         console.log('✅ 회원가입 응답:', response.data);
         console.log('✅ 응답 헤더:', response.headers['Authorization']);
-
         return response.data;
       })
       .catch((err) => {

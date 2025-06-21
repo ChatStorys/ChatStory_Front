@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-
+import { registerAuthbody } from '../../../interface/useAuth/auth';
 const Container = styled.div`
   width: 420px;
   height: 59px;
@@ -47,7 +47,7 @@ const Content = styled.input`
   font-size: 17px;
   font-style: normal;
   font-weight: 500;
-  line-height: 140%; /* 23.8px */
+  line-height: 140%;
   letter-spacing: -0.425px;
   border: none;
   background-color: #e4e0e1;
@@ -56,13 +56,17 @@ type SignupProps = {
   img: string;
   content: string;
   check: boolean;
+  form: registerAuthbody;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputname: 'user_id' | 'password' | 'name';
+  type: string;
 };
-const Signupbox: React.FC<SignupProps> = ({ img, content, check }) => {
+const Signupbox: React.FC<SignupProps> = ({ img, content, check, form, onChange, type, inputname }) => {
   return (
     <Container>
       <LeftBox>
         <Img src={img} alt="login" />
-        <Content placeholder={content} />
+        <Content placeholder={content} type={type} name={inputname} value={form[inputname]} onChange={onChange} />
       </LeftBox>
       <RightBox style={{ visibility: check ? 'visible' : 'hidden' }}>중복 확인</RightBox>
     </Container>
