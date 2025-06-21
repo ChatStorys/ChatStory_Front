@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -16,6 +17,7 @@ const BackArrow = styled.div`
   font-family: 'Heir of Light';
   font-size: 50px;
   font-style: normal;
+  cursor: pointer;
 `;
 const Title = styled.div`
   color: #493628;
@@ -32,9 +34,11 @@ type HeaderProps = {
   title: string;
 };
 const Header: React.FC<HeaderProps> = ({ title }) => {
+  const navigate = useNavigate();
+
   return (
     <Container>
-      <BackArrow>&lt;</BackArrow>
+      <BackArrow onClick={() => navigate(-1)}>&lt;</BackArrow>
       <Title>{title}</Title>
       <Empty></Empty>
     </Container>

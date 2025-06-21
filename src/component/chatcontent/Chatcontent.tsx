@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
-  height: 750px;
+  height: 600px;
   margin: 40px 0;
   overflow: scroll;
 `;

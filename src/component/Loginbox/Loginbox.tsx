@@ -32,12 +32,14 @@ const Content = styled.input`
 type LoginProps = {
   img: string;
   content: string;
+  onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
 };
-const Loginbox: React.FC<LoginProps> = ({ img, content }) => {
+const Loginbox: React.FC<LoginProps> = ({ img, content, onchange, type }) => {
   return (
     <Container>
       <Img src={img} alt="login" />
-      <Content placeholder={content} />
+      <Content placeholder={content} onChange={onchange} type={type} />
     </Container>
   );
 };

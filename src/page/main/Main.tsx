@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Mainbutton from '../../component/Mainbutton/Mainbutton.tsx';
+import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,11 +21,12 @@ const Title = styled.h1`
   border-radius: 20px;
 `;
 const Main: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Title>ChatStory</Title>
-      <Mainbutton>소설 쓰기</Mainbutton>
-      <Mainbutton>도서관 들어가기</Mainbutton>
+      <Mainbutton onClick={() => navigate('/category')}>소설 쓰기</Mainbutton>
+      <Mainbutton onClick={() => navigate('/archiving')}>도서관 들어가기</Mainbutton>
     </Container>
   );
 };
