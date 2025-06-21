@@ -2,7 +2,8 @@ import useApi from '../useApi';
 
 const useArchive = () => {
   const { archiveApi } = useApi();
-
+  const token = localStorage.getItem('access_token');
+  archiveApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   const getarchive = () => {
     return archiveApi
       .get('')

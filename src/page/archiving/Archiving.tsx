@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Header from '../../component/header/Header';
 import click from '../../assets/archiving/click.svg';
@@ -7,6 +7,8 @@ import original from '../../assets/archiving/original.svg';
 import pedestal from '../../assets/archiving/pedestal.svg';
 import LeftrightBtn from '../../component/button/LeftrightBtn/LeftrightBtn';
 import useArchive from '../../hook/api/useArchive/useArchive';
+import { useNavigate } from 'react-router-dom';
+import { Archivebody } from '../../interface/archive/archive';
 const Container = styled.div`
   background: #e4e0e1;
   padding: 0 126px;
@@ -16,7 +18,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,13 +56,18 @@ const Delete = styled.div`
   height: 70px;
   line-height: 70px;
   margin-top: 50px;
+  cursor: pointer;
 `;
 
 const Archiving: React.FC = () => {
   const { getarchive, Deletearchive } = useArchive();
+  const navigate = useNavigate();
+  const [archiveList, setArchiveList] = useState<Archivebody[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const getarchiveInfo = async () => {
     try {
-      const response = await getarchive();
+      const response: Archivebody[] = await getarchive();
+      setArchiveList(response); // 배열 통째로 저장
       console.log('Archive data:', response);
     } catch (error) {
       console.error('Error fetching archive:', error);
@@ -70,6 +77,30 @@ const Archiving: React.FC = () => {
   useEffect(() => {
     getarchiveInfo();
   }, []);
+  const currentStory = archiveList[currentIndex];
+  const handleLeft = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+  const handleRight = () => {
+    if (currentIndex < archiveList.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+  const handleDelete = async () => {
+    if (currentStory) {
+      try {
+        await Deletearchive(currentStory.bookId);
+        setArchiveList((prev) => prev.filter((story) => story.bookId !== currentStory.bookId));
+        if (currentIndex > 0) {
+          setCurrentIndex((prev) => prev - 1);
+        }
+      } catch (error) {
+        console.error('Error deleting archive:', error);
+      }
+    }
+  };
   return (
     <Container>
       <Header title="닉네임의 도서관" />
@@ -79,11 +110,11 @@ const Archiving: React.FC = () => {
           <Img src={pedestal} />
         </ImgBox>
         <Footer>
-          <Title>소설 제목</Title>
-          <Delete>소설 삭제</Delete>
+          <Title>{currentStory?.title ?? '제목 없음'}</Title>
+          <Delete onClick={handleDelete}>소설 삭제</Delete>
         </Footer>
       </Content>
-      <LeftrightBtn />
+      <LeftrightBtn onLeftClick={handleLeft} onRightClick={handleRight} />
     </Container>
   );
 };

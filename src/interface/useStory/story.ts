@@ -11,3 +11,6 @@ export interface finishStorybody {
   created_at: string;
   is_finished: boolean;
 }
+export interface chapterStorybody {
+  book_id: string;
+}

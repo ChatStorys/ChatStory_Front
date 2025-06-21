@@ -59,8 +59,8 @@ const RightChat = styled.div`
   justify-content: flex-end;
 `;
 type Chatting = {
-  LLM_Model: string;
-  User: string;
+  LLM_Model?: string;
+  User?: string;
 };
 type ChatcontentProps = {
   chatcontent: Chatting[];
@@ -70,12 +70,8 @@ const Chatcontent: React.FC<ChatcontentProps> = ({ chatcontent }) => {
     <Container>
       {chatcontent.map((chats, index) => (
         <Chatcontainer key={index}>
-          <LeftChat>
-            <LLM>{chats.LLM_Model}</LLM>
-          </LeftChat>
-          <RightChat>
-            <User>{chats.User}</User>
-          </RightChat>
+          <RightChat>{chats.User && chats.User.length > 0 && <User>{chats.User}</User>}</RightChat>
+          <LeftChat>{chats.LLM_Model && chats.LLM_Model.length > 0 && <LLM>{chats.LLM_Model}</LLM>}</LeftChat>
         </Chatcontainer>
       ))}
     </Container>
