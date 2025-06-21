@@ -9,11 +9,11 @@ import Category from '../page/category/Category';
 const Routers = () => {
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: '/main',
       element: <Main />,
     },
     {
-      path: '/chatting',
+      path: '/chatting/:book_id',
       element: <Chatting />,
     },
     {
@@ -21,7 +21,7 @@ const Routers = () => {
       element: <Archive />,
     },
     {
-      path: '/login',
+      path: '/',
       element: <Login />,
     },
     {

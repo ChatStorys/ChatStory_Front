@@ -17,12 +17,14 @@ const Container = styled.div`
   line-height: normal;
   border: 1px solid #000;
   border-radius: 20px;
+  cursor: pointer;
 `;
 type Mainbutton = {
   children: React.ReactNode;
+  onClick?: () => void;
 };
-const Mainbutton: React.FC<Mainbutton> = ({ children }) => {
-  return <Container>{children}</Container>;
+const Mainbutton: React.FC<Mainbutton> = ({ children, onClick }) => {
+  return <Container onClick={onClick}>{children}</Container>;
 };
 
 export default Mainbutton;

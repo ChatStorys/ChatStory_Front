@@ -46,12 +46,13 @@ const SentChat = styled.img`
 `;
 type Footer = {
   handleCutModal: () => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleSendStory?: () => void;
 };
-const Footer: React.FC<Footer> = ({ handleCutModal }) => {
-  const [message, setMessage] = useState('');
+const Footer: React.FC<Footer> = ({ handleCutModal, onChange, handleSendStory }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
+    onChange(e);
     autoResize();
   };
   const autoResize = () => {
@@ -69,10 +70,10 @@ const Footer: React.FC<Footer> = ({ handleCutModal }) => {
   return (
     <Container>
       <Subcontainer>
-        <Sendmessage ref={textareaRef} placeholder="메세지 보내기..." value={message} onChange={handleChange} onKeyDown={handleKeyDown} />{' '}
+        <Sendmessage ref={textareaRef} placeholder="메세지 보내기..." onChange={handleChange} onKeyDown={handleKeyDown} maxLength={1000} />{' '}
         <ButtonBox>
-          <EndChapter src={Endchapter} />
-          <SentChat src={SendChat} onClick={handleCutModal} />
+          <EndChapter src={Endchapter} onClick={handleCutModal} />
+          <SentChat src={SendChat} onClick={handleSendStory} />
         </ButtonBox>
       </Subcontainer>
     </Container>

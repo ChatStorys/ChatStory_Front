@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../../component/header/Header';
 import click from '../../assets/archiving/click.svg';
@@ -6,7 +6,7 @@ import hover from '../../assets/archiving/hover.svg';
 import original from '../../assets/archiving/original.svg';
 import pedestal from '../../assets/archiving/pedestal.svg';
 import LeftrightBtn from '../../component/button/LeftrightBtn/LeftrightBtn';
-
+import useArchive from '../../hook/api/useArchive/useArchive';
 const Container = styled.div`
   background: #e4e0e1;
   padding: 0 126px;
@@ -55,7 +55,21 @@ const Delete = styled.div`
   line-height: 70px;
   margin-top: 50px;
 `;
+
 const Archiving: React.FC = () => {
+  const { getarchive, Deletearchive } = useArchive();
+  const getarchiveInfo = async () => {
+    try {
+      const response = await getarchive();
+      console.log('Archive data:', response);
+    } catch (error) {
+      console.error('Error fetching archive:', error);
+    }
+  };
+
+  useEffect(() => {
+    getarchiveInfo();
+  }, []);
   return (
     <Container>
       <Header title="닉네임의 도서관" />

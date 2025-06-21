@@ -46,14 +46,15 @@ const CutButton = styled.div`
   line-height: normal;
 `;
 type cutModal = {
-  handleCutModal: () => void;
+  handlefinish: () => void;
+  handlechpater: () => void;
 };
-const Cutmodal: React.FC<cutModal> = ({ handleCutModal }) => {
+const Cutmodal: React.FC<cutModal> = ({ handlefinish, handlechpater }) => {
   return (
     <Container>
-      <Modal onClick={handleCutModal}>
-        <CutButton>다음 챕터로 넘어가기</CutButton>
-        <CutButton>소설 끝내기 </CutButton>
+      <Modal>
+        <CutButton onClick={handlechpater}>다음 챕터로 넘어가기</CutButton>
+        <CutButton onClick={handlefinish}>소설 끝내기 </CutButton>
       </Modal>
     </Container>
   );
