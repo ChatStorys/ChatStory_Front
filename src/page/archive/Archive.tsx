@@ -8,7 +8,7 @@ import { Chapter } from '../../interface/archive/archive';
 import { useParams } from 'react-router-dom';
 import useArchive from '../../hook/api/useArchive/useArchive';
 import { ArchiveContent } from '../../interface/archive/archive';
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 11;
 
 const Container = styled.div`
   background: #e4e0e1;
