@@ -3,16 +3,19 @@ export interface Archivebody {
   title: string;
   createdAt: string;
 }
-
+export interface Music {
+  title: string;
+  artist: string;
+}
 export interface Chapter {
+  chapter_num: number;
   content: string;
-  musicTitle: string;
-  composer: string;
+  recommended_music: Music[];
 }
 
 export interface ArchiveContent {
   bookId: string;
   title: string;
-  chapter: Chapter[];
+  chapters: Chapter[];
   createdAt: string;
 }

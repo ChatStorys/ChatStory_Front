@@ -7,6 +7,7 @@ import music from '../../assets/Archive/Music.svg';
 import { Chapter } from '../../interface/archive/archive';
 import { useParams } from 'react-router-dom';
 import useArchive from '../../hook/api/useArchive/useArchive';
+import { ArchiveContent } from '../../interface/archive/archive';
 const PAGE_SIZE = 14;
 
 const Container = styled.div`
@@ -94,37 +95,32 @@ const MusicContent = styled.div`
 `;
 const MusicImg = styled.img``;
 const Archive: React.FC = () => {
-  const [story, setStory] = useState<any>({});
+  const dummyStory: ArchiveContent = {
+    bookId: 'dummy-book-id',
+    title: '더미 책 제목',
+    createdAt: new Date().toISOString(),
+    chapters: [
+      {
+        chapter_num: 1,
+        content: '이것은 더미 콘텐츠입니다. 테스트용입니다.',
+        recommended_music: [
+          {
+            title: '더미 음악 제목',
+            artist: '더미 아티스트',
+          },
+        ],
+      },
+    ],
+  };
+  const [story, setStory] = useState<ArchiveContent>(dummyStory);
 
-  useEffect(() => {
-    setStory({
-      bookId: '123e4567-e89b-12d3-a456-426614174000',
-      title: '인공지능과 나의 하루',
-      chapter: [
-        {
-          content:
-            '안녕하세요 안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요난 그렇게 하루를 시작했어요. AI가 추천해준 음악을 들으며 기분 좋게 하루를 시작했답니다. 이 음악은 정말 기분이 좋아지는 멜로디였어요. AI가 추천해준 음악은 "A Day with AI"라는 곡이었고, 작곡가는 OpenAI Soundworks였습니다. 이 곡은 AI와의 하루를 함께하는 느낌을 잘 표현해주었어요.사ㅣㄹ 지나ㅉ 몰르아러 ㅇ니렁ㄴ미렂댜ㅐ;ㄹ ㅓㅇㄴ마ㅣㅓ라 ㅁㄴㅇ;ㅐ랴ㅓㅈㄷㅁ ㅓ닝ㅁ프 ㄴ래;ㅠㅓㄴ랲;ㅓㅁ개ㅑ헞ㅁ[ㅔ어ㅑ러댤;ㅁ널 ㄴ얼먀ㅐㄷ절 ;ㅁ재뢔먕누니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 니다. 이 곡은 AI와의 하루를 함께하는 느낌을 ',
-
-          musicTitle: 'A Day with AI',
-          composer: 'OpenAI Soundworks',
-        },
-        {
-          content:
-            '오늘은 인공지능과 함께하는 특별한 하루입니다. 아침에 일어나서 AI가 추천해준 음악을 들으며 시작했어요. 이 음악은 정말 기분이 좋아지는 멜로디였어요. AI가 추천해준 음악은 "A Day with AI"라는 곡이었고, 작곡가는 OpenAI Soundworks였습니다. 이 곡은 AI와의 하루를 함께하는 느낌을 잘 표현해주었어요.',
-          musicTitle: "Tomorrow's Code",
-          composer: 'AI Composer',
-        },
-      ],
-      createdAt: '2025-06-22T10:43:28.002Z',
-    });
-  }, []);
   const { book_id } = useParams();
   const { getarchiveAbook } = useArchive();
   const getArchiveAbook = async () => {
     try {
       if (book_id) {
         const response = await getarchiveAbook(book_id);
-        // setStory(response);
+        setStory(response);
         console.log('아카이브 뜬거', response);
       }
     } catch (error) {
@@ -135,26 +131,29 @@ const Archive: React.FC = () => {
     getArchiveAbook();
   }, [book_id]);
   const makePageArray = (chapterArr: Chapter[]) => {
-    const pages: { type: 'cover' | 'content'; content?: string; musicTitle?: string; composer?: string; index?: number }[] = [];
-    chapterArr.map((ch, index) => {
-      pages.push({ type: 'cover', index: index + 1, musicTitle: ch.musicTitle, composer: ch.composer });
+    const pages: { type: 'cover' | 'content'; content?: string; title?: string; artist?: string; index?: number }[] = [];
+    chapterArr.forEach((ch, index) => {
+      console.log('ch', ch);
+      const title = ch.recommended_music[0].title;
+      const artist = ch.recommended_music[0].artist;
+      pages.push({ type: 'cover', index: index + 1, title, artist });
+
       const lines = splitByLength(ch.content, 53);
-      const pageSize = lines.length / PAGE_SIZE;
-      for (let i = 0; i < pageSize; i++) {
-        const start = i * PAGE_SIZE;
-        const end = start + PAGE_SIZE;
+      const pageCount = Math.max(1, Math.ceil(lines.length / PAGE_SIZE));
+
+      for (let i = 0; i < pageCount; i++) {
         pages.push({
           type: 'content',
-          content: lines.slice(start, end).join('\n'),
-          musicTitle: ch.musicTitle,
-          composer: ch.composer,
+          content: lines.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE).join('\n'),
+          title,
+          artist,
         });
       }
     });
     return pages;
   };
 
-  const pages = makePageArray(story.chapter);
+  const pages = makePageArray(story.chapters);
   const [pageindex, setPageindex] = useState(0);
   const currentLines = pages[pageindex];
   return (
@@ -162,10 +161,10 @@ const Archive: React.FC = () => {
       <Container>
         <Header title={story.title} />
         <Novelcontent>
-          {currentLines.type === 'cover' ? (
+          {currentLines?.type === 'cover' ? (
             <Cover>{`Chapter${currentLines.index}`}</Cover>
           ) : (
-            currentLines.content?.split('\n').map((line, idx) => <Content key={idx}>{line}</Content>)
+            currentLines?.content?.split('\n').map((line, idx) => <Content key={idx}>{line}</Content>)
           )}
           <ArchiveFooter>
             <PageNumber>
@@ -173,7 +172,7 @@ const Archive: React.FC = () => {
             </PageNumber>
             <MusicBtn>
               <MusicContent>
-                {currentLines.composer}-{currentLines.musicTitle}
+                {currentLines?.artist}-{currentLines?.title}
               </MusicContent>
               <MusicImg src={music} />
             </MusicBtn>
