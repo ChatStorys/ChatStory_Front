@@ -1,4 +1,5 @@
 import useApi from '../useApi';
+import axios from 'axios';
 import { registerAuthbody, loginAuthbody } from '../../../interface/useAuth/auth';
 
 const useAuth = () => {
@@ -22,10 +23,7 @@ const useAuth = () => {
       .post(`/login`, loginAuthbody)
       .then((response) => {
         console.log('✅ 로그인 응답:', response.data);
-        console.log('✅ 응답 헤더:', response.headers['Authorization']);
-        console.log('✅ 응답 헤더:', response.headers['authorization']);
-        console.log('✅ 응답 헤더:', response.headers);
-
+        localStorage.setItem('access_token', response.data.access_token);
         return response.data;
       })
 

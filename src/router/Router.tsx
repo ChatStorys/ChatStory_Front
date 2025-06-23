@@ -17,7 +17,7 @@ const Routers = () => {
       element: <Chatting />,
     },
     {
-      path: '/archive',
+      path: '/archive/:book_id',
       element: <Archive />,
     },
     {

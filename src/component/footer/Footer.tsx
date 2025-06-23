@@ -48,8 +48,9 @@ type Footer = {
   handleCutModal: () => void;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleSendStory?: () => void;
+  value?: string;
 };
-const Footer: React.FC<Footer> = ({ handleCutModal, onChange, handleSendStory }) => {
+const Footer: React.FC<Footer> = ({ handleCutModal, onChange, handleSendStory, value }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e);
@@ -62,6 +63,18 @@ const Footer: React.FC<Footer> = ({ handleCutModal, onChange, handleSendStory })
       el.style.height = `${el.scrollHeight}px`; // 스크롤 높이만큼 확장
     }
   };
+  const clearInput = () => {
+    if (textareaRef.current) {
+      textareaRef.current.value = '';
+      textareaRef.current.style.height = 'auto';
+    }
+  };
+  const handleSendClick = () => {
+    if (handleSendStory) {
+      handleSendStory(); // 실제 메시지 전송 함수 호출
+      clearInput(); // textarea 비우기 + 높이 초기화
+    }
+  };
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault(); // 줄바꿈 막기
@@ -70,10 +83,10 @@ const Footer: React.FC<Footer> = ({ handleCutModal, onChange, handleSendStory })
   return (
     <Container>
       <Subcontainer>
-        <Sendmessage ref={textareaRef} placeholder="메세지 보내기..." onChange={handleChange} onKeyDown={handleKeyDown} maxLength={1000} />{' '}
+        <Sendmessage ref={textareaRef} placeholder="메세지 보내기..." value={value} onChange={handleChange} onKeyDown={handleKeyDown} maxLength={1000} />{' '}
         <ButtonBox>
           <EndChapter src={Endchapter} onClick={handleCutModal} />
-          <SentChat src={SendChat} onClick={handleSendStory} />
+          <SentChat src={SendChat} onClick={handleSendClick} />
         </ButtonBox>
       </Subcontainer>
     </Container>

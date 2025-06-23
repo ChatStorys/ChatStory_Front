@@ -73,7 +73,7 @@ const Category: React.FC = () => {
     try {
       const response = await createStory(storyData);
       console.log('소설 생성 성공:', response);
-      // navigate(`/chatting:${response.book_id}`);
+      navigate(`/chatting/${response.book_id}`);
     } catch (error) {
       console.error('소설 생성 실패:', error);
       alert('소설 생성에 실패했습니다. 다시 시도해주세요.');
