@@ -2,7 +2,7 @@ import useApi from '../useApi';
 import { createStorybody, sendStorybody, finishStorybody, chapterStorybody } from '../../../interface/useStory/story';
 
 const useStory = () => {
-  const { storyApi } = useApi();
+  const { storyApi, aiApi } = useApi();
   const token = localStorage.getItem('access_token');
   storyApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
@@ -17,7 +17,7 @@ const useStory = () => {
 
   const sendStory = (sendStorybody: sendStorybody) => {
     return storyApi
-      .post(`/chat/send`, sendStorybody)
+      .post(`/send`, sendStorybody)
       .then((response) => response.data)
       .catch((err) => {
         console.log(err);
@@ -33,11 +33,9 @@ const useStory = () => {
       });
   };
 
-  const finishStory = (book_id: string) => {
+  const finishStory = (chapterStorybody: chapterStorybody) => {
     return storyApi
-      .post('/finish', null, {
-        params: { book_id },
-      })
+      .post('/finish', chapterStorybody)
       .then((response) => response)
       .catch((err) => {
         console.log(err);
@@ -46,8 +44,11 @@ const useStory = () => {
 
   const finishStoryChapter = (chapterStorybody: chapterStorybody) => {
     return storyApi
-      .post(`/chapter/end`, chapterStorybody)
-      .then((response) => response)
+      .post(`/story/chapter/summary_with_music`, chapterStorybody)
+      .then((response) => {
+        response.data;
+        console.log('챕터 완료 응답:', response.data);
+      })
       .catch((err) => {
         console.log(err);
       });

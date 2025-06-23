@@ -26,7 +26,7 @@ const Main: React.FC = () => {
     <Container>
       <Title>ChatStory</Title>
       <Mainbutton onClick={() => navigate('/category')}>소설 쓰기</Mainbutton>
-      <Mainbutton onClick={() => navigate('/archiving')}>도서관 들어가기</Mainbutton>
+      <Mainbutton onClick={() => navigate('/archiving')}>아카이브</Mainbutton>
     </Container>
   );
 };

@@ -9,6 +9,7 @@ import LeftrightBtn from '../../component/button/LeftrightBtn/LeftrightBtn';
 import useArchive from '../../hook/api/useArchive/useArchive';
 import { useNavigate } from 'react-router-dom';
 import { Archivebody } from '../../interface/archive/archive';
+
 const Container = styled.div`
   background: #e4e0e1;
   padding: 0 126px;
@@ -64,6 +65,7 @@ const Archiving: React.FC = () => {
   const navigate = useNavigate();
   const [archiveList, setArchiveList] = useState<Archivebody[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const getarchiveInfo = async () => {
     try {
       const response: Archivebody[] = await getarchive();
@@ -101,20 +103,45 @@ const Archiving: React.FC = () => {
       }
     }
   };
+  const [imgState, setImgState] = useState<'default' | 'hover' | 'click'>('default');
+  const getOriginalImg = () => {
+    switch (imgState) {
+      case 'hover':
+        return hover;
+      case 'click':
+        return click;
+      default:
+        return original;
+    }
+  };
   return (
     <Container>
-      <Header title="닉네임의 도서관" />
-      <Content>
-        <ImgBox>
-          <Img src={original} />
-          <Img src={pedestal} />
-        </ImgBox>
-        <Footer>
-          <Title>{currentStory?.title ?? '제목 없음'}</Title>
-          <Delete onClick={handleDelete}>소설 삭제</Delete>
-        </Footer>
-      </Content>
-      <LeftrightBtn onLeftClick={handleLeft} onRightClick={handleRight} />
+      <Header title="도서관" />
+
+      {currentStory ? (
+        <>
+          <Content>
+            <ImgBox>
+              <Img
+                src={getOriginalImg()}
+                onMouseEnter={() => setImgState('hover')}
+                onMouseLeave={() => setImgState('default')}
+                onMouseDown={() => setImgState('click')}
+                onMouseUp={() => setImgState('hover')}
+                onClick={() => navigate(`/archive/${currentStory.bookId}`)}
+              />
+              <Img src={pedestal} />
+            </ImgBox>
+            <Footer>
+              <Title>{currentStory.title}</Title>
+              <Delete onClick={handleDelete}>소설 삭제</Delete>
+            </Footer>
+          </Content>
+          <LeftrightBtn onLeftClick={handleLeft} onRightClick={handleRight} />
+        </>
+      ) : (
+        <div style={{ textAlign: 'center', marginTop: '100px' }}>불러올 아카이브가 없습니다.</div>
+      )}
     </Container>
   );
 };
