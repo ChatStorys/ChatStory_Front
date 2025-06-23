@@ -8,7 +8,7 @@ import { Chapter } from '../../interface/archive/archive';
 import { useParams } from 'react-router-dom';
 import useArchive from '../../hook/api/useArchive/useArchive';
 import { ArchiveContent } from '../../interface/archive/archive';
-const PAGE_SIZE = 14;
+const PAGE_SIZE = 12;
 
 const Container = styled.div`
   background: #e4e0e1;
@@ -138,7 +138,7 @@ const Archive: React.FC = () => {
       const artist = ch.recommended_music[0].artist;
       pages.push({ type: 'cover', index: index + 1, title, artist });
 
-      const lines = splitByLength(ch.content, 53);
+      const lines = splitByLength(ch.content, 57);
       const pageCount = Math.max(1, Math.ceil(lines.length / PAGE_SIZE));
 
       for (let i = 0; i < pageCount; i++) {
