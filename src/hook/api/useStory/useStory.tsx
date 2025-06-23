@@ -1,8 +1,8 @@
 import useApi from '../useApi';
-import { createStorybody, sendStorybody, finishStorybody, chapterStorybody } from '../../../interface/useStory/story';
+import { createStorybody, sendStorybody, chapterStorybody } from '../../../interface/useStory/story';
 
 const useStory = () => {
-  const { storyApi, aiApi } = useApi();
+  const { storyApi } = useApi();
   const token = localStorage.getItem('access_token');
   storyApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 

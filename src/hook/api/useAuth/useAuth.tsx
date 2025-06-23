@@ -1,5 +1,4 @@
 import useApi from '../useApi';
-import axios from 'axios';
 import { registerAuthbody, loginAuthbody } from '../../../interface/useAuth/auth';
 
 const useAuth = () => {
