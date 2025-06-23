@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Header from '../../component/header/Header';
 import LeftrightBtn from '../../component/button/LeftrightBtn/LeftrightBtn';
 import { splitByLength } from '../../functions/archive/splitByLength';
-import music from '../../assets/Archive/Music.svg';
+import music from '../../assets/Archive/music.svg';
 import { Chapter } from '../../interface/archive/archive';
 import { useParams } from 'react-router-dom';
 import useArchive from '../../hook/api/useArchive/useArchive';
