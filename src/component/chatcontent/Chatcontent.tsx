@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
   height: 600px;
   margin: 40px 0;
-  overflow: scroll;
+  overflow-y: auto;
 `;
 const Chatcontainer = styled.div`
   display: flex;
@@ -64,16 +64,28 @@ type Chatting = {
 };
 type ChatcontentProps = {
   chatcontent: Chatting[];
+  isTyping?: boolean;
 };
-const Chatcontent: React.FC<ChatcontentProps> = ({ chatcontent }) => {
+const Chatcontent: React.FC<ChatcontentProps> = ({ chatcontent, isTyping }) => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatcontent]);
   return (
     <Container>
       {chatcontent.map((chats, index) => (
         <Chatcontainer key={index}>
           <RightChat>{chats.User && chats.User.length > 0 && <User>{chats.User}</User>}</RightChat>
+          {isTyping && chatcontent.length == index + 1 && (
+            <LeftChat>
+              <LLM>...생성중입니다.</LLM>
+            </LeftChat>
+          )}
           <LeftChat>{chats.LLM_Model && chats.LLM_Model.length > 0 && <LLM>{chats.LLM_Model}</LLM>}</LeftChat>
         </Chatcontainer>
       ))}
+      <div ref={messagesEndRef} />
     </Container>
   );
 };

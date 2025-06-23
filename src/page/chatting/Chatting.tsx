@@ -13,6 +13,15 @@ const Container = styled.div`
   padding: 0 126px;
   height: 1024px;
   z-index: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+const ChatBox = styled.div`
+  flex: 1; // 남은 공간 다 차지
+
+  height: 600px;
+  overflow-y: auto;
 `;
 const Chatting: React.FC = () => {
   const [cutModal, setCutModal] = useState(false);
@@ -22,6 +31,7 @@ const Chatting: React.FC = () => {
   };
   const { book_id } = useParams();
   const id = book_id!;
+  const [isTyping, setIsTyping] = useState(false);
   const navigate = useNavigate();
   const [content, setContent] = useState([
     {
@@ -46,14 +56,14 @@ const Chatting: React.FC = () => {
       return;
     }
     setContent((prev) => [...prev, { User: prompt, LLM_Model: '' }]);
-
+    console.log('스토리 데이터:', content);
+    setIsTyping(true);
+    setPromt('');
     try {
       const response = await sendStory(storyData);
       console.log('스토리 전송 성공:', response);
-      console.log('response:', prompt);
       setContent((prev) => [...prev, { User: '', LLM_Model: response?.prompt || '' }]);
-      console.log('content:', content);
-      setPromt('');
+      setIsTyping(false);
     } catch (error) {
       console.error('스토리 전송 실패:', error);
     }
@@ -114,7 +124,9 @@ const Chatting: React.FC = () => {
     <>
       <Container>
         <Header title="소설 쓰기" />
-        <Chatcontent chatcontent={content} />
+        <ChatBox>
+          <Chatcontent chatcontent={content} isTyping={isTyping} />
+        </ChatBox>
       </Container>
       <Footer handleCutModal={handleCutModal} onChange={handlePromtChange} handleSendStory={handleSendStory} value={prompt} />
       {cutModal && <Cutmodal handlefinish={handleFinishStory} handlechpater={handleContinueStory} />}
