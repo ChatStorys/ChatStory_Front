@@ -134,7 +134,7 @@ const Archive: React.FC = () => {
     const pages: { type: 'cover' | 'content'; content?: string; musicTitle?: string; composer?: string; index?: number }[] = [];
     chapterArr.map((ch, index) => {
       pages.push({ type: 'cover', index: index + 1, musicTitle: ch.musicTitle, composer: ch.composer });
-      const lines = splitByLength(ch.content, 34);
+      const lines = splitByLength(ch.content, 53);
       const pageSize = lines.length / PAGE_SIZE;
       for (let i = 0; i < pageSize; i++) {
         const start = i * PAGE_SIZE;
