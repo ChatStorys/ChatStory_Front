@@ -27,7 +27,6 @@ const Chatting: React.FC = () => {
   const [cutModal, setCutModal] = useState(false);
   const handleCutModal = () => {
     handleChapterStory();
-    setCutModal((prev) => !prev);
   };
   const { book_id } = useParams();
   const id = book_id!;
@@ -91,6 +90,7 @@ const Chatting: React.FC = () => {
     try {
       const response = await finishStoryChapter(chapterStory);
       console.log('챕터 성공:', response);
+      setCutModal((prev) => !prev);
     } catch (error) {
       console.error('챕터 실패:', error);
     }
